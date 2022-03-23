@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<!-- Credits:
+    https://stackoverflow.com/questions/51409650/javascript-how-to-make-multiple-divs-draggable-and-movable-across-the-website
+    https://www.w3schools.com/howto/howto_js_toggle_hide_show.asp
+-->
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./style.css">
+</head>
+
+<body>
+    <!-- <div class="flex">
+        <iframe src="./aelfric evt/index.html" width="50%" height="100%"></iframe>
+        <iframe src="./bolougne evt/index.html" width="50%" height="100%"></iframe>
+    </div> -->
+
+    <canvas id="canvas" class="canvas"></canvas>
+
+    <div id="div1">
+        <p id="xButton" onclick="xFunction()">x</p>
+        <iframe src="./aelfric evt/index.html"></iframe>
+    </div>
+
+    <div id="div2">
+        <iframe src="./bolougne evt/index.html"></iframe>
+    </div>
+
+    <script>
+        function xFunction() {
+            var x = document.getElementById("div1");
+            if (x.style.display === "none") {
+                x.style.display = "block";
+            } else {
+                x.style.display = "none";
+            }
+        }
+
+        divs = document.getElementsByTagName("div");
+        for (div of divs) div.onmousedown = onMouseDown;
+
+        document.onmousemove = onMouseMove;
+        document.onmouseup = onMouseUp;
+
+        canvas.width = window.innerWidth - 20;
+        canvas.height = window.innerHeight - 20;
+
+        var the_moving_div = '';
+        var the_last_mouse_position = { x: 0, y: 0 };
+
+        function onMouseDown(e) {
+            e.preventDefault();
+            the_moving_div = e.target.id;      // remember which div has been selected 
+            the_last_mouse_position.x = e.clientX;        // remember where the mouse was when it was clicked
+            the_last_mouse_position.y = e.clientY;
+
+            var divs = document.getElementsByTagName("div");
+            e.target.style.zIndex = divs.length;          // put this div  on top
+            var i = 1; for (div of divs) if (div.id != the_moving_div) div.style.zIndex = i++;   // put all other divs behind the selected one
+        }
+
+        function onMouseMove(e) {
+            e.preventDefault();
+            if (the_moving_div == "") return;
+            var d = document.getElementById(the_moving_div);
+            d.style.left = d.offsetLeft + e.clientX - the_last_mouse_position.x + "px";     // move the div by however much the mouse moved
+            d.style.top = d.offsetTop + e.clientY - the_last_mouse_position.y + "px";
+            the_last_mouse_position.x = e.clientX;                                          // remember where the mouse is now
+            the_last_mouse_position.y = e.clientY;
+        }
+
+        function onMouseUp(e) {
+            e.preventDefault();
+            if (the_moving_div == "") return;
+            the_moving_div = "";
+        }
+    </script>
+</body>
+
+</html>
