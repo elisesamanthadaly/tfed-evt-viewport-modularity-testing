@@ -2,7 +2,7 @@
 
 https://elisesamanthadaly.github.io/tfed-evt-viewport-modularity-testing/
 
-- This is a very poorly built demo to drag/drop and delete instances of multiple EVTs using iframes
+- This is a very poorly built demo to drag/drop and delete instances of multiple EVTs using iframes. Click on the grey margins to move the EVT instances, and click the X in the lower instance to 'delete' it. Refresh the page to reset.
 
 - To get a local instance of EVT to run on Chrome, I had to create a Chrome shortcut and add "-allow-file-access-from-files" as a launch parameter.
 
